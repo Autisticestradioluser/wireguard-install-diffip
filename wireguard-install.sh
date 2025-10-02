@@ -342,7 +342,7 @@ Usage: bash $0 [options]
 Options:
 
   --addclient [client name]      add a new client
-  --dns1 [DNS server IP]         primary DNS server for new client (optional, default: Google Public DNS)
+  --dns1 [DNS server IP]         primary DNS server for new client (optional, default: Quad9 DNS)
   --dns2 [DNS server IP]         secondary DNS server for new client (optional)
   --listclients                  list the names of existing clients
   --removeclient [client name]   remove an existing client
@@ -357,7 +357,7 @@ Install options (optional):
   --serveraddr [DNS name or IP]  server address, must be a fully qualified domain name (FQDN) or an IPv4 address
   --port [number]                port for WireGuard (1-65535, default: 51820)
   --clientname [client name]     name for the first WireGuard client (default: client)
-  --dns1 [DNS server IP]         primary DNS server for first client (default: Google Public DNS)
+  --dns1 [DNS server IP]         primary DNS server for first client (default: Quad9 DNS)
   --dns2 [DNS server IP]         secondary DNS server for first client
 
 To customize options, you may also run this script without arguments.
@@ -513,7 +513,7 @@ show_config() {
 		elif [ -n "$dns1" ]; then
 			dns_text="$dns1"
 		else
-			dns_text="Google Public DNS"
+			dns_text="Quad9 DNS"
 		fi
 		echo "Port: UDP/$port_text"
 		echo "Client name: $client_text"
@@ -837,13 +837,13 @@ select_dns() {
 		echo "   5) Quad9"
 		echo "   6) AdGuard DNS"
 		echo "   7) Custom"
-		read -rp "DNS server [2]: " dns
+		read -rp "DNS server [5]: " dns
 		until [[ -z "$dns" || "$dns" =~ ^[1-7]$ ]]; do
 			echo "$dns: invalid selection."
-			read -rp "DNS server [2]: " dns
+			read -rp "DNS server [5]: " dns
 		done
 	else
-		dns=2
+		dns=5
 	fi
 		# DNS
 	case "$dns" in
