@@ -858,7 +858,7 @@ select_dns() {
 			# Extract nameservers and provide them in the required format
 			dns=$(grep -v '^#\|^;' "$resolv_conf" | grep '^nameserver' | grep -v '127.0.0.53' | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}' | xargs | sed -e 's/ /, /g')
 		;;
-		2|"")
+		2)
 			dns="8.8.8.8, 8.8.4.4"
 		;;
 		3)
@@ -867,7 +867,7 @@ select_dns() {
 		4)
 			dns="208.67.222.222, 208.67.220.220"
 		;;
-		5)
+		5|"")
 			dns="9.9.9.9, 149.112.112.112"
 		;;
 		6)
